@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ermoshkin Artem | Backend Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0f1720;
+      --bg-soft: #172231;
+      --card: rgba(20, 31, 45, 0.78);
+      --card-border: rgba(152, 190, 255, 0.24);
+      --text: #e9f2ff;
+      --muted: #adc3de;
+      --accent: #66d9ff;
+      --accent-2: #8cffc2;
+      --shadow: 0 14px 45px rgba(3, 8, 18, 0.42);
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+    }
+
+    body {
+      font-family: "Space Grotesk", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 10% 8%, rgba(102, 217, 255, 0.22), transparent 36%),
+        radial-gradient(circle at 90% 20%, rgba(140, 255, 194, 0.16), transparent 36%),
+        linear-gradient(180deg, #0b121a 0%, var(--bg) 58%, #0a1119 100%);
+      line-height: 1.55;
+      letter-spacing: 0.01em;
+    }
+
+    .noise {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.07;
+      background-image: radial-gradient(rgba(255, 255, 255, 0.9) 0.35px, transparent 0.35px);
+      background-size: 3px 3px;
+      mix-blend-mode: soft-light;
+      z-index: -1;
+    }
+
+    .container {
+      width: min(1060px, 92vw);
+      margin: 0 auto;
+      padding: 28px 0 56px;
+    }
+
+    .hero {
+      position: relative;
+      background: linear-gradient(155deg, rgba(29, 44, 62, 0.9), rgba(22, 33, 45, 0.76));
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: clamp(28px, 5.4vw, 52px);
+      overflow: hidden;
+      animation: rise 680ms ease both;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 420px;
+      height: 420px;
+      right: -200px;
+      top: -230px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(102, 217, 255, 0.4) 0%, rgba(102, 217, 255, 0) 72%);
+      pointer-events: none;
+    }
+
+    .tag {
+      font-family: "IBM Plex Mono", monospace;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.79rem;
+      text-transform: uppercase;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      margin-bottom: 14px;
+    }
+
+    .tag::before {
+      content: "";
+      width: 16px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      line-height: 1.2;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      letter-spacing: 0.01em;
+    }
+
+    .subtitle {
+      margin-top: 14px;
+      max-width: 690px;
+      color: var(--muted);
+      font-size: clamp(1rem, 1.9vw, 1.2rem);
+    }
+
+    .contact-row {
+      margin-top: 26px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 11px;
+    }
+
+    .chip {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.89rem;
+      color: #dbecff;
+      text-decoration: none;
+      border: 1px solid rgba(190, 223, 255, 0.35);
+      background: rgba(14, 22, 33, 0.48);
+      border-radius: 999px;
+      padding: 8px 13px;
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+    }
+
+    .chip:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+      background: rgba(37, 56, 79, 0.6);
+    }
+
+    .grid {
+      margin-top: 22px;
+      display: grid;
+      gap: 18px;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px;
+      animation: rise 620ms ease both;
+    }
+
+    .card:nth-child(2) { animation-delay: 90ms; }
+    .card:nth-child(3) { animation-delay: 150ms; }
+    .card:nth-child(4) { animation-delay: 220ms; }
+    .card:nth-child(5) { animation-delay: 280ms; }
+
+    .span-12 {
+      grid-column: span 12;
+    }
+
+    .span-7 {
+      grid-column: span 7;
+    }
+
+    .span-5 {
+      grid-column: span 5;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    h2 {
+      font-size: 1.42rem;
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .project-list,
+    .skill-list,
+    .edu-list,
+    .soft-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 12px;
+    }
+
+    .project-item,
+    .list-item {
+      border: 1px solid rgba(167, 206, 255, 0.2);
+      border-radius: 13px;
+      padding: 12px 14px;
+      background: rgba(17, 26, 36, 0.6);
+    }
+
+    .project-item a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .project-item a:hover {
+      text-decoration: underline;
+    }
+
+    .stack {
+      color: var(--accent-2);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.83rem;
+      margin-left: 8px;
+    }
+
+    p {
+      margin: 10px 0 0;
+      color: #d3e4f8;
+    }
+
+    .skill-list strong {
+      color: #e6f8ff;
+    }
+
+    .footer-note {
+      margin-top: 18px;
+      text-align: center;
+      color: rgba(190, 209, 230, 0.66);
+      font-size: 0.9rem;
+      font-family: "IBM Plex Mono", monospace;
+    }
+
+    @keyframes rise {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 920px) {
+      .span-7,
+      .span-5 {
+        grid-column: span 12;
+      }
+
+      .container {
+        padding-top: 18px;
+      }
+
+      .card {
+        padding: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <main class="container">
+    <section class="hero">
+      <div class="tag">Backend Engineer</div>
+      <h1>Ermoshkin Artem</h1>
+      <p class="subtitle">
+        C++-focused engineer with production experience at Yandex.Metrika, building high-performance backend systems,
+        resilient data pipelines, and practical developer-first infrastructure.
+      </p>
+      <div class="contact-row">
+        <a class="chip" href="tel:+79055659592">+7 (905) 565-95-92</a>
+        <a class="chip" href="mailto:huaweitit0101@gmail.com">huaweitit0101@gmail.com</a>
+        <a class="chip" href="https://t.me/shifdis" target="_blank" rel="noreferrer">@shifdis</a>
+        <a class="chip" href="https://github.com/Shfdis" target="_blank" rel="noreferrer">github.com/Shfdis</a>
+      </div>
+    </section>
+
+    <section class="grid">
+      <article class="card span-12">
+        <div class="section-head">
+          <h2>Experience</h2>
+          <span class="muted">Yandex.Metrika · </span>
+        </div>
+        <p>
+          Updated business logic in multiple services and migrated systems to newer internal frameworks.
+          Designed and shipped a fault-tolerant incremental materialized view system on top of Yandex databases,
+          reducing delay-sensitive bottlenecks across multiple services.
+        </p>
+      </article>
+
+      <article class="card span-12">
+        <div class="section-head">
+          <h2>Projects</h2>
+          <span class="muted">Selected Work</span>
+        </div>
+        <ul class="project-list">
+          <li class="project-item">
+            <a href="https://github.com/Shfdis/httpserver" target="_blank" rel="noreferrer">HTTPServer</a>
+            <span class="stack">C++20 + liburing</span>
+            <p>
+              Minimalistic happy-path optimized HTTP server. Echo benchmark showed significantly stronger performance
+              than Rust Tokio.
+            </p>
+          </li>
+          <li class="project-item">
+            <a href="https://github.com/Shfdis/restAPI/tree/master" target="_blank" rel="noreferrer">Messenger</a>
+            <span class="stack">C++20, Boost, SQLite, CMake</span>
+            <p>
+              REST API for a minimal messenger with authentication, chat creation, and message delivery; clients poll endpoints.
+            </p>
+          </li>
+          <li class="project-item">
+            <a href="https://github.com/Shfdis/MeowOs" target="_blank" rel="noreferrer">MeowOS</a>
+            <span class="stack">C++, NASM</span>
+            <p>
+              Ongoing hobby operating system featuring round-robin scheduling, VRAM handling, memory allocation,
+              flat filesystem, keyboard input, and VGA text output.
+            </p>
+          </li>
+          <li class="project-item">
+            <a href="https://github.com/Shfdis/Selectio/tree/main/backend" target="_blank" rel="noreferrer">Selectio</a>
+            <span class="stack">C# ASP.NET + Python (SciPy, Pytest)</span>
+            <p>
+              In-progress social network for book lovers with vector-search recommendations. Implemented CRUD APIs
+              for books, comments, and posts, plus ALS-based book embeddings.
+            </p>
+          </li>
+        </ul>
+      </article>
+
+      <article class="card span-7">
+        <div class="section-head">
+          <h2>Hard Skills</h2>
+        </div>
+        <ul class="skill-list">
+          <li class="list-item"><strong>C++:</strong> C++17/C++20 production and algorithmic programming experience.</li>
+          <li class="list-item"><strong>Python:</strong> Flask, SQLAlchemy, PyTelegramBotAPI, requests, pytest.</li>
+          <li class="list-item"><strong>C#:</strong> ASP.NET Web API and Entity Framework.</li>
+          <li class="list-item"><strong>Infra:</strong> SQL, Docker, Linux terminal, event queues and orchestrator analogs.</li>
+          <li class="list-item"><strong>Also used:</strong> C, C#, Go, JavaScript in educational and hobby projects.</li>
+        </ul>
+      </article>
+
+      <article class="card span-5">
+        <div class="section-head">
+          <h2>Soft Skills</h2>
+        </div>
+        <ul class="soft-list">
+          <li class="list-item">English B2+, Russian native.</li>
+          <li class="list-item">Led multiple small projects as CTO.</li>
+        </ul>
+      </article>
+
+      <article class="card span-12">
+        <div class="section-head">
+          <h2>Education & Achievements</h2>
+        </div>
+        <ul class="edu-list">
+          <li class="list-item">HSE FCS SE 2028.</li>
+          <li class="list-item">
+            Codeforces rating 1994 (peak 2047), co-created
+            <a href="https://codeforces.com/contest/2059" target="_blank" rel="noreferrer">Div.2 Round 2059</a>
+            and proposed problems E1/E2.
+          </li>
+          <li class="list-item">T-Bank education scholarship recipient.</li>
+        </ul>
+      </article>
+    </section>
+  </main>
+</body>
+</html>
